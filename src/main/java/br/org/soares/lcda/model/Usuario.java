@@ -9,7 +9,7 @@ public class Usuario {
 	private String login;
 	
 	@XStreamAlias("senha")
-	private String senha;
+	private Senha senha;
 
 	public String getLogin() {
 		return login;
@@ -19,11 +19,11 @@ public class Usuario {
 		this.login = login;
 	}
 
-	public String getSenha() {
+	public Senha getSenha() {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
+	public void setSenha(Senha senha) {
 		this.senha = senha;
 	}
 

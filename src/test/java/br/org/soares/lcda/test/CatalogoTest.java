@@ -7,16 +7,15 @@ import org.junit.Test;
 
 import br.org.soares.lcda.CatalogoFactory;
 import br.org.soares.lcda.model.Catalogo;
+import br.org.soares.lcda.model.Senha;
 import br.org.soares.lcda.model.Servico;
 import br.org.soares.lcda.model.Usuario;
 import br.org.soares.lcda.persistence.RepositorioXML;
-import br.org.soares.lcda.security.ChaveDeSegmento;
-import br.org.soares.lcda.security.CriptografiaAES;
 
 public class CatalogoTest {
 
-	private CriptografiaAES criptografia;
-	private String segmento;
+	private Senha senhaWashington;
+	private Senha senhaWassoaresHotmail;
 	private Usuario washington;
 	private Usuario wassoaresHotmail;
 	private Servico hotmail;
@@ -24,27 +23,28 @@ public class CatalogoTest {
 
 	@Before
 	public void inicializar() {
-		criptografia = new CriptografiaAES();
-		segmento = ChaveDeSegmento.gerar();
+		senhaWashington = CatalogoFactory.criarSenha();
+		senhaWashington.setPalavra("was38");
+		
+		senhaWassoaresHotmail = CatalogoFactory.criarSenha();
+		senhaWassoaresHotmail.setPalavra("was35*12");
+		
 		washington = CatalogoFactory.criarUsuario();
 		washington.setLogin("Washington");
-		washington.setSenha(criptografia.encriptar("was38", segmento));
+		washington.setSenha(senhaWashington);
+		
 		wassoaresHotmail = CatalogoFactory.criarUsuario();
 		wassoaresHotmail.setLogin("wassoares@hotmail.com");
-		wassoaresHotmail.setSenha(criptografia.encriptar("was35*12", segmento));
+		wassoaresHotmail.setSenha(senhaWassoaresHotmail);
+		
 		hotmail = CatalogoFactory.criarServico();
 		hotmail.setProvedor("hotmail.com");
 		hotmail.setUsuario(wassoaresHotmail);
 		hotmail.setObservacao("login de acesso ao hotmail.com");
+		
 		catalogo = CatalogoFactory.criarCatalogo();
 		catalogo.setUsuario(washington);
 		catalogo.getServicos().add(hotmail);
-	}
-
-	@Test
-	public void verificarCriptografiaDeSenhaEmObjetoTest() {
-		String senhaDesencriptada = criptografia.decriptar(washington.getSenha(), segmento);
-		assertTrue(senhaDesencriptada.equals("was38"));
 	}
 
 	@Test
@@ -52,11 +52,11 @@ public class CatalogoTest {
 		RepositorioXML repositorio = new RepositorioXML("repository/catalogo.xml");
 		repositorio.gravar(catalogo);
 		Catalogo consulta = (Catalogo) repositorio.acessar();
-		String senha = criptografia.decriptar(consulta.getUsuario().getSenha(), segmento);
+		String senha = consulta.getUsuario().getSenha().getPalavra();
 		assertTrue(senha.equals("was38"));
 	}
 
-	// @Test
+	//@Test
 	public void test() {
 		fail("Not yet implemented");
 	}

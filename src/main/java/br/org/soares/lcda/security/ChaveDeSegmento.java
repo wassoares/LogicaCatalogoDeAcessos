@@ -4,12 +4,23 @@ import java.security.SecureRandom;
 
 public class ChaveDeSegmento {
 
-	private static SecureRandom garantia = new SecureRandom();
-
-	public static String gerar() {
+	private SecureRandom garantia;
+	private ArquivoDeSegmento arquivo;
+	
+	public ChaveDeSegmento() {
+		garantia = new SecureRandom();
+		arquivo = new ArquivoDeSegmento();
+	}	
+	
+	public String obter() {
+		return arquivo.existe()? arquivo.ler(): this.gerar();
+	}
+	
+	private String gerar() {
 		byte bytes[] = new byte[16];
 		garantia.nextBytes(bytes);
-		return new String(bytes);
+		arquivo.gravar(new String(bytes));
+		return arquivo.ler();
 	}
 
 }

@@ -7,15 +7,21 @@ import java.io.PrintWriter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import br.org.soares.lcda.security.ChaveDeSegmento;
+import br.org.soares.lcda.security.ConverteSenha;
+
 public class RepositorioXML {
 
 	private File arquivo;
 	private XStream fluxoDeDados;
+	private ChaveDeSegmento chaveDeSegmento;
 
 	public RepositorioXML(String local) {
+		chaveDeSegmento = new ChaveDeSegmento();
 		arquivo = new File(local);
 		fluxoDeDados = new XStream(new DomDriver());
 		fluxoDeDados.autodetectAnnotations(true);
+		fluxoDeDados.registerConverter(new ConverteSenha(chaveDeSegmento.obter()));
 	}
 
 	public void gravar(Object objeto) {

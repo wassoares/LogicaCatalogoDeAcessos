@@ -8,17 +8,23 @@ import java.io.IOException;
 
 public class ArquivoDeSegmento {
 
+	private static final String LOCAL = "repository/segmento.dat";
+	
 	private File arquivo;
 	private BufferedReader leitor;
 
-	public ArquivoDeSegmento(String local) {
-		arquivo = new File(local);
+	public ArquivoDeSegmento() {
+		arquivo = new File(LOCAL);
 	}
 
+	public boolean existe() {		
+		return arquivo.exists()? true: false;
+	}
+	
 	public void gravar(String segmento) {
 		FileOutputStream fluxoDeSaida;
 		try {
-			if (!arquivo.exists()) {
+			if (!existe()) {
 				fluxoDeSaida = new FileOutputStream(arquivo);
 				fluxoDeSaida.write(segmento.getBytes());
 				fluxoDeSaida.flush();
