@@ -1,0 +1,2 @@
+# LogicaCatalogoDeAcessos
+Este repositório representa a Lógica de Negócio (Back-End) do projeto Catálogo de Acessos, uma simples aplicação para guardar senhas criptografadas de usuários por provedores/sites de acesso. E tem por base a API XStream para manipular dados em arquivo XML.
