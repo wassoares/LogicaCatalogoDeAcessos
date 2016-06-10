@@ -1,4 +1,4 @@
-package br.org.soares.lcda.security;
+package br.org.soares.lcda.persistence;
 
 import java.io.BufferedReader;
 import java.io.File;

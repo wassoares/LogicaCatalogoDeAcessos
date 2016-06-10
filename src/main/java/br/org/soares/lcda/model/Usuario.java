@@ -7,7 +7,7 @@ public class Usuario {
 
 	@XStreamAlias("login")
 	private String login;
-	
+
 	@XStreamAlias("senha")
 	private Senha senha;
 

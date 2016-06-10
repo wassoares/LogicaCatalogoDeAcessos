@@ -1,0 +1,13 @@
+br\org\soares\lcda\model\Usuario.class
+br\org\soares\lcda\CatalogoFacade.class
+br\org\soares\lcda\exceptions\ProvedorExistenteException.class
+br\org\soares\lcda\model\Senha.class
+br\org\soares\lcda\model\Servico.class
+br\org\soares\lcda\CatalogoFactory.class
+br\org\soares\lcda\model\Catalogo.class
+br\org\soares\lcda\persistence\RepositorioXML.class
+br\org\soares\lcda\security\ChaveDeSegmento.class
+br\org\soares\lcda\security\ArquivoDeSegmento.class
+br\org\soares\lcda\Facade.class
+br\org\soares\lcda\security\ConverteSenha.class
+br\org\soares\lcda\security\CriptografiaAES.class

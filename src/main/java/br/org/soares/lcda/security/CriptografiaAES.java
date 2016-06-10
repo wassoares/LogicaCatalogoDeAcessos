@@ -1,18 +1,10 @@
 package br.org.soares.lcda.security;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
@@ -51,8 +43,7 @@ public class CriptografiaAES {
 			fluxoDeSaida.write(vetoresDeInicializacao);
 			fluxoDeSaida.write(bytesCriptografados);
 			return codificador.encodeToString(fluxoDeSaida.toByteArray());
-		} catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException
-				| BadPaddingException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -64,8 +55,7 @@ public class CriptografiaAES {
 			SecretKeySpec segredo = gerarChaveDeSeguranca(segmento);
 			cifra.init(Cipher.DECRYPT_MODE, segredo, new IvParameterSpec(bytesDecodificados, 0, 16));
 			return new String(cifra.doFinal(bytesDecodificados, 16, bytesDecodificados.length - 16));
-		} catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException
-				| BadPaddingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -75,11 +65,11 @@ public class CriptografiaAES {
 		try {
 			SecretKeyFactory fabrica = SecretKeyFactory.getInstance(CRIPTOGRAFIA);
 			PBEKeySpec chaveDeInspecao = new PBEKeySpec(CONTRA_SENHA.toCharArray(), segmento.getBytes(CODIFICACAO),
-					65536, 128);
+					65536, 128); 
 			SecretKey chaveSecreta = fabrica.generateSecret(chaveDeInspecao);
 			SecretKeySpec segredo = new SecretKeySpec(chaveSecreta.getEncoded(), PADRAO);
 			return segredo;
-		} catch (NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeySpecException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

@@ -3,29 +3,45 @@ package br.org.soares.lcda.persistence;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
+import br.org.soares.lcda.model.Catalogo;
+import br.org.soares.lcda.model.Senha;
+import br.org.soares.lcda.model.Servico;
+import br.org.soares.lcda.model.Usuario;
 import br.org.soares.lcda.security.ChaveDeSegmento;
-import br.org.soares.lcda.security.ConverteSenha;
 
 public class RepositorioXML {
+
+	private static final String LOCAL = "repository/catalogo.xml";
+
+	private static RepositorioXML instance;
 
 	private File arquivo;
 	private XStream fluxoDeDados;
 	private ChaveDeSegmento chaveDeSegmento;
 
-	public RepositorioXML(String local) {
+	private RepositorioXML() {
+		arquivo = new File(LOCAL);
 		chaveDeSegmento = new ChaveDeSegmento();
-		arquivo = new File(local);
-		fluxoDeDados = new XStream(new DomDriver());
+		fluxoDeDados = new XStream();
+		fluxoDeDados.alias("catalogo", Catalogo.class);
+		fluxoDeDados.alias("servico", Servico.class);
+		fluxoDeDados.alias("usuario", Usuario.class);
+		fluxoDeDados.alias("senha", Senha.class);
 		fluxoDeDados.autodetectAnnotations(true);
-		fluxoDeDados.registerConverter(new ConverteSenha(chaveDeSegmento.obter()));
+		fluxoDeDados.registerConverter(new ConversorDeSenha(chaveDeSegmento.obter()));
+		fluxoDeDados.registerConverter(new ConversorDeAnotacao());
 	}
 
-	public void gravar(Object objeto) {
-		PrintWriter escritor = null;
+	public static RepositorioXML getInstance() {
+		if (instance == null) {
+			instance = new RepositorioXML();
+		}
+		return instance;
+	}
+	
+	public void gravar(Object objeto) {		
+		PrintWriter escritor;
 		try {
 			escritor = new PrintWriter(arquivo);
 			escritor.write(fluxoDeDados.toXML(objeto));
@@ -33,13 +49,15 @@ public class RepositorioXML {
 			escritor.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} finally {
-			escritor.close();
 		}
+	}
+	
+	public boolean existe() {
+		return arquivo.exists() ? true : false;
 	}
 
 	public Object acessar() {
-		return fluxoDeDados.fromXML(arquivo);
+		return existe() ? fluxoDeDados.fromXML(arquivo) : null;
 	}
 
 }

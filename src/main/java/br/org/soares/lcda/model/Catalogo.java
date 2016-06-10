@@ -3,6 +3,8 @@ package br.org.soares.lcda.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.org.soares.lcda.model.Usuario;
+import br.org.soares.lcda.model.Servico;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("catalogo")
@@ -10,10 +12,10 @@ public class Catalogo {
 
 	@XStreamAlias("usuario")
 	private Usuario usuario;
-	
+
 	@XStreamAlias("servicos")
 	private List<Servico> servicos;
-	
+
 	public Catalogo() {
 		this.servicos = new ArrayList<Servico>();
 	}

@@ -2,6 +2,8 @@ package br.org.soares.lcda.security;
 
 import java.security.SecureRandom;
 
+import br.org.soares.lcda.persistence.ArquivoDeSegmento;
+
 public class ChaveDeSegmento {
 
 	private SecureRandom garantia;

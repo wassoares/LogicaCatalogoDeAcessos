@@ -7,6 +7,12 @@ public class Senha {
 
 	@XStreamAlias("criptograma")
 	private String palavra;
+	
+	public Senha() {}
+
+	public Senha(String arg) {
+		setPalavra(arg);
+	}
 
 	public String getPalavra() {
 		return palavra;
@@ -20,5 +26,5 @@ public class Senha {
 	public String toString() {
 		return "Senha [palavra=" + palavra + "]";
 	}
-	
+
 }

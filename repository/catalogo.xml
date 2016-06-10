@@ -1,0 +1,22 @@
+<catalogo>
+  <usuario>
+    <login>Fulano</login>
+    <senha>
+      <criptograma>P//q1ZdTnWLcZxJLQ4lSFVoZY9qkJyA8xdRioSmH0Rc=</criptograma>
+    </senha>
+  </usuario>
+  <servicos>
+    <servico>
+      <provedor>Gmail</provedor>
+      <descricao>
+        <texto>login de acesso ao gmail.com</texto>
+      </descricao>
+      <usuario>
+        <login>fulano@gmail.com</login>
+        <senha>
+          <criptograma>SBRL8O+QCMjKRcRDXsbJ021XZS8V6Cq31PR33/uYAm0=</criptograma>
+        </senha>
+      </usuario>
+    </servico>
+  </servicos>
+</catalogo>

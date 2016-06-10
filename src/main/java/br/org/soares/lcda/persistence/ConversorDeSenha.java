@@ -1,4 +1,4 @@
-package br.org.soares.lcda.security;
+package br.org.soares.lcda.persistence;
 
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -7,13 +7,14 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 import br.org.soares.lcda.model.Senha;
+import br.org.soares.lcda.security.CriptografiaAES;
 
-public class ConverteSenha implements Converter {
+public class ConversorDeSenha implements Converter {
 
 	private String segmento;
 	private CriptografiaAES criptografia;
 	
-	public ConverteSenha(String segmento) {
+	public ConversorDeSenha(String segmento) {
 		this.segmento = segmento;
 		this.criptografia = new CriptografiaAES();
 	}
@@ -34,7 +35,7 @@ public class ConverteSenha implements Converter {
 	}
 
 	@Override
-	public Object unmarshal(HierarchicalStreamReader leitor, UnmarshallingContext context) {
+	public Object unmarshal(HierarchicalStreamReader leitor, UnmarshallingContext contexto) {
 		Senha senha = new Senha();
 		leitor.moveDown();
 		senha.setPalavra(criptografia.decriptar(leitor.getValue(), segmento));

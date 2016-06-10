@@ -8,18 +8,26 @@ public class Servico {
 	@XStreamAlias("provedor")
 	private String provedor;
 	
+	@XStreamAlias("descricao")
+	private Anotacao descricao;
+	
 	@XStreamAlias("usuario")
 	private Usuario usuario;
 	
-	@XStreamAlias("observacao")
-	private String observacao;
-
 	public String getProvedor() {
 		return provedor;
 	}
 
 	public void setProvedor(String provedor) {
 		this.provedor = provedor;
+	}
+
+	public Anotacao getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(Anotacao descricao) {
+		this.descricao = descricao;
 	}
 
 	public Usuario getUsuario() {
@@ -30,17 +38,9 @@ public class Servico {
 		this.usuario = usuario;
 	}
 
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
 	@Override
 	public String toString() {
-		return "Servico [provedor=" + provedor + ", usuario=" + usuario + ", observacao=" + observacao + "]";
+		return "Servico [provedor=" + provedor + ", descricao=" + descricao + ", usuario=" + usuario + "]";
 	}
-
+	
 }
